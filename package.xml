@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>tmc_gazebo_task_evaluators</name>
+  <version>1.0.0</version>
+  <description>The tmc_gazebo_task_evaluators package</description>
+
+  <maintainer email="xr-hsr-support@mail.toyota.co.jp">HSR Support</maintainer>
+
+  <license>BSD 3-clause Clear License</license>
+
+  <author>Yosuke Matsusaka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>cmake_modules</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>rosgraph_msgs</run_depend>
+  <test_depend>hsrb_gazebo_launch</test_depend>
+</package>

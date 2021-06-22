@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<!--
+Copyright (c) 2019, Toyota Motor Corporation
+Copyright (c) 2021, MID Academic Promotions, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+ * Neither the name of Toyota Motor Corporation nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+<launch>
+  <arg name="robot_name" default="$(optenv ROBOT_NAME hsrb)" />
+  <arg name="camera_controller" default="false" />
+  <arg name="seed" default="1" />
+
+  <!-- task evaluators -->
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_drawerleft_detector" output="screen">
+    <param name="box_name" value="trofast_1::link" />
+    <rosparam param="box_size">[0.35, 0.21, 0.25]</rosparam>
+    <rosparam param="box_pose">[0, 0, 0.125]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="shapeitems_in_drawerleft_detector" output="screen">
+    <param name="box_name" value="trofast_1::link" />
+    <rosparam param="box_size">[0.35, 0.21, 0.25]</rosparam>
+    <rosparam param="box_pose">[0, 0, 0.125]</rosparam>
+    <rosparam param="object_names">['task1_shapeitem_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_drawertop_detector" output="screen">
+    <param name="box_name" value="trofast_2::link" />
+    <rosparam param="box_size">[0.35, 0.21, 0.25]</rosparam>
+    <rosparam param="box_pose">[0, 0, 0.125]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="tools_in_drawertop_detector" output="screen">
+    <param name="box_name" value="trofast_2::link" />
+    <rosparam param="box_size">[0.35, 0.21, 0.25]</rosparam>
+    <rosparam param="box_pose">[0, 0, 0.125]</rosparam>
+    <rosparam param="object_names">['task1_tool_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_drawerbottom_detector" output="screen">
+    <param name="box_name" value="trofast_3::link" />
+    <rosparam param="box_size">[0.35, 0.21, 0.25]</rosparam>
+    <rosparam param="box_pose">[0, 0, 0.125]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="tools_in_drawerbottom_detector" output="screen">
+    <param name="box_name" value="trofast_3::link" />
+    <rosparam param="box_size">[0.35, 0.21, 0.25]</rosparam>
+    <rosparam param="box_pose">[0, 0, 0.125]</rosparam>
+    <rosparam param="object_names">['task1_tool_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="drawer_in_drawerfront_detector" output="screen">
+    <param name="box_name" value="wrc_stair_like_drawer::link" />
+    <rosparam param="box_pose">[0.5, 0, 0]</rosparam>
+    <rosparam param="box_size">[0.5, 1, 1.5]</rosparam>
+    <rosparam param="object_names">['trofast_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_containera_detector" output="screen">
+    <param name="box_name" value="wrc_container_b::link" />
+    <rosparam param="box_pose">[0, 0, 0.055]</rosparam>
+    <rosparam param="box_size">[0.18, 0.26, 0.11]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="kitchenitems_in_containera_detector" output="screen">
+    <param name="box_name" value="wrc_container_b::link" />
+    <rosparam param="box_pose">[0, 0, 0.055]</rosparam>
+    <rosparam param="box_size">[0.18, 0.26, 0.11]</rosparam>
+    <rosparam param="object_names">['task1_kitchenitem_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_containerb_detector" output="screen">
+    <param name="box_name" value="wrc_container_a::link" />
+    <rosparam param="box_pose">[0, 0, 0.1]</rosparam>
+    <rosparam param="box_size">[0.12, 0.12, 0.2]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="largemarker_in_containerb_detector" output="screen">
+    <param name="box_name" value="wrc_container_a::link" />
+    <rosparam param="box_pose">[0, 0, 0.1]</rosparam>
+    <rosparam param="box_size">[0.12, 0.12, 0.2]</rosparam>
+    <rosparam param="object_names">['task1_tool_ycb_040_large_marker_*']</rosparam>
+    <rosparam param="object_axes">[0, 1, 0]</rosparam>
+    <rosparam param="target_axes">[0, 0, -1]</rosparam>
+    <rosparam param="allow_degree">45</rosparam>
+    <rosparam param="both_direction">0</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="fork_in_containerb_detector" output="screen">
+    <param name="box_name" value="wrc_container_a::link" />
+    <rosparam param="box_pose">[0, 0, 0.1]</rosparam>
+    <rosparam param="box_size">[0.12, 0.12, 0.2]</rosparam>
+    <rosparam param="object_names">['task1_kitchenitem_ycb_030_fork_*']</rosparam>
+    <rosparam param="object_axes">[1, 0, 0]</rosparam>
+    <rosparam param="target_axes">[0, 0, 1]</rosparam>
+    <rosparam param="allow_degree">45</rosparam>
+    <rosparam param="both_direction">0</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="spoon_in_containerb_detector" output="screen">
+    <param name="box_name" value="wrc_container_a::link" />
+    <rosparam param="box_pose">[0, 0, 0.1]</rosparam>
+    <rosparam param="box_size">[0.12, 0.12, 0.2]</rosparam>
+    <rosparam param="object_names">['task1_kitchenitem_ycb_031_spoon_*']</rosparam>
+    <rosparam param="object_axes">[1, 0, 0]</rosparam>
+    <rosparam param="target_axes">[0, 0, 1]</rosparam>
+    <rosparam param="allow_degree">45</rosparam>
+    <rosparam param="both_direction">0</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_traya_detector" output="screen">
+    <param name="box_name" value="wrc_tray_1::link" />
+    <rosparam param="box_pose">[0, 0, 0.1]</rosparam>
+    <rosparam param="box_size">[0.285, 0.37, 0.2]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="foods_in_traya_detector" output="screen">
+    <param name="box_name" value="wrc_tray_1::link" />
+    <rosparam param="box_pose">[0, 0, 0.1]</rosparam>
+    <rosparam param="box_size">[0.285, 0.37, 0.2]</rosparam>
+    <rosparam param="object_names">['task1_food_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_trayb_detector" output="screen">
+    <param name="box_name" value="wrc_tray_2::link" />
+    <rosparam param="box_pose">[0, 0, 0.1]</rosparam>
+    <rosparam param="box_size">[0.285, 0.37, 0.2]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="foods_in_trayb_detector" output="screen">
+    <param name="box_name" value="wrc_tray_2::link" />
+    <rosparam param="box_pose">[0, 0, 0.1]</rosparam>
+    <rosparam param="box_size">[0.285, 0.37, 0.2]</rosparam>
+    <rosparam param="object_names">['task1_food_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_bina_detector" output="screen">
+    <param name="box_name" value="wrc_bin_green::link" />
+    <rosparam param="box_pose">[0, 0, 0.165]</rosparam>
+    <rosparam param="box_size">[0.33, 0.38, 0.33]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="taskitems_in_bina_detector" output="screen">
+    <param name="box_name" value="wrc_bin_green::link" />
+    <rosparam param="box_pose">[0, 0, 0.165]</rosparam>
+    <rosparam param="box_size">[0.33, 0.38, 0.33]</rosparam>
+    <rosparam param="object_names">['task1_taskitem_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="any_in_binb_detector" output="screen">
+    <param name="box_name" value="wrc_bin_black::link" />
+    <rosparam param="box_pose">[0, 0, 0.165]</rosparam>
+    <rosparam param="box_size">[0.33, 0.38, 0.33]</rosparam>
+    <rosparam param="object_names">['task1_*']</rosparam>
+  </node>
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="taskitems_in_binb_detector" output="screen">
+    <param name="box_name" value="wrc_bin_black::link" />
+    <rosparam param="box_pose">[0, 0, 0.165]</rosparam>
+    <rosparam param="box_size">[0.33, 0.38, 0.33]</rosparam>
+    <rosparam param="object_names">['task1_unknown_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="hsrb_in_room2_detector" output="screen">
+    <param name="box_name" value="wrc_frame::link" />
+    <rosparam param="box_pose">[1.5, 0, 1]</rosparam>
+    <rosparam param="box_size">[3, 4, 3]</rosparam>
+    <rosparam param="object_names" subst_value="true">['$(arg robot_name)']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="hsrb_in_humanleftfront_detector" output="screen">
+    <param name="box_name" value="person_standing::link" />
+    <rosparam param="box_pose">[0, -0.5, 1]</rosparam>
+    <rosparam param="box_size">[1.2, 1.6, 3]</rosparam>
+    <rosparam param="object_names" subst_value="true">['$(arg robot_name)']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="object_in_box_detector" name="hsrb_in_humanrightfront_detector" output="screen">
+    <param name="box_name" value="person_standing_0::link" />
+    <rosparam param="box_pose">[0, -0.5, 1]</rosparam>
+    <rosparam param="box_size">[1.2, 1.6, 3]</rosparam>
+    <rosparam param="object_names" subst_value="true">['$(arg robot_name)']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="undesired_contact_detector" name="undesired_contact_detector" output="screen">
+    <param name="target_model_name" value="$(arg robot_name)" />
+    <rosparam param="except_model_names">['wrc_ground_plane', 'wrc_tray_*', 'wrc_container_*', 'trofast_*', 'task1_*', 'wrc_bookshelf', 'task2_*']</rosparam>
+  </node>
+
+  <node pkg="tmc_gazebo_task_evaluators" type="wrs_score_counter" name="wrs_score_counter" output="screen">
+    <param name="seed" value="$(arg seed)" />
+  </node>
+
+  <group if="$(arg camera_controller)">
+    <node pkg="tmc_gazebo_task_evaluators" type="wrs_camera_controller" name="wrs_camera_controller" output="screen">
+      <param name="robot_name" value="$(arg robot_name)" />
+    </node>
+  </group>
+</launch>

@@ -1,0 +1,11 @@
+function tmc_gazebo_task_evaluators_setup {
+    local plugin_path=@CMAKE_INSTALL_PREFIX@/@CATKIN_PACKAGE_BIN_DESTINATION@
+    
+    if [ -z $GAZEBO_PLUGIN_PATH ]
+    then
+        export GAZEBO_PLUGIN_PATH=$plugin_path
+    else
+        export GAZEBO_PLUGIN_PATH=$plugin_path:$GAZEBO_PLUGIN_PATH
+    fi
+}
+tmc_gazebo_task_evaluators_setup
